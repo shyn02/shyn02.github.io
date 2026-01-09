@@ -323,19 +323,32 @@
             color: var(--neon-blue);
         }
         
-        /* Hero Section */
+        /* Hero Section - FIXED CENTERED LAYOUT */
         .hero {
             padding-top: 180px;
             padding-bottom: 150px;
             position: relative;
             overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
         }
         
         .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
             align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-text {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 3;
         }
         
         .hero-text h1 {
@@ -344,18 +357,19 @@
         }
         
         .hero-tagline {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             color: var(--neon-blue);
             font-weight: 600;
             margin-bottom: 2rem;
             position: relative;
-            padding-left: 20px;
+            display: inline-block;
+            padding: 0 20px;
         }
         
-        .hero-tagline::before {
+        .hero-tagline::before,
+        .hero-tagline::after {
             content: '';
             position: absolute;
-            left: 0;
             top: 50%;
             transform: translateY(-50%);
             width: 10px;
@@ -365,59 +379,86 @@
             animation: pulse 2s infinite;
         }
         
+        .hero-tagline::before {
+            left: 0;
+        }
+        
+        .hero-tagline::after {
+            right: 0;
+        }
+        
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(255, 0, 255, 0.7); }
             70% { box-shadow: 0 0 0 10px rgba(255, 0, 255, 0); }
             100% { box-shadow: 0 0 0 0 rgba(255, 0, 255, 0); }
         }
         
+        .hero-description {
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+        
         .hero-visual {
-            position: relative;
-            height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            opacity: 0.7;
+            pointer-events: none;
         }
         
         .floating-shapes {
             position: relative;
-            width: 300px;
-            height: 300px;
+            width: 100%;
+            height: 100%;
         }
         
         .shape {
             position: absolute;
             border-radius: 50%;
             background: var(--gradient);
-            opacity: 0.3;
-            filter: blur(40px);
+            opacity: 0.15;
+            filter: blur(60px);
         }
         
         .shape-1 {
-            width: 200px;
-            height: 200px;
-            top: 0;
-            left: 0;
-            animation: float 6s ease-in-out infinite;
+            width: 300px;
+            height: 300px;
+            top: 20%;
+            left: 15%;
+            animation: float 8s ease-in-out infinite;
         }
         
         .shape-2 {
-            width: 150px;
-            height: 150px;
-            bottom: 0;
-            right: 0;
-            animation: float 8s ease-in-out infinite reverse;
+            width: 250px;
+            height: 250px;
+            bottom: 20%;
+            right: 15%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+        
+        .shape-3 {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: float 12s ease-in-out infinite;
+            animation-delay: 1s;
         }
         
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+            50% { transform: translateY(-40px) rotate(180deg); }
         }
         
         .hero-cta {
             display: flex;
             gap: 20px;
             margin-top: 3rem;
+            justify-content: center;
         }
         
         /* Button Styles */
@@ -425,7 +466,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 14px 32px;
+            padding: 16px 36px;
             font-weight: 600;
             text-decoration: none;
             border-radius: 8px;
@@ -436,6 +477,7 @@
             border: none;
             cursor: pointer;
             font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
         }
         
         .btn::before {
@@ -673,23 +715,27 @@
                 font-size: 2.2rem;
             }
             
-            .hero-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
+            .hero {
+                padding-top: 150px;
+                min-height: auto;
             }
             
-            .hero-text {
-                text-align: center;
+            .hero-text h1 {
+                font-size: 3rem;
             }
             
-            .hero-tagline::before {
-                left: 50%;
-                transform: translate(-50%, -50%);
-                top: -15px;
+            .hero-tagline {
+                font-size: 1.3rem;
             }
             
             .hero-cta {
-                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
             }
         }
         
@@ -734,6 +780,19 @@
             .skills-container {
                 grid-template-columns: 1fr;
             }
+            
+            .hero {
+                padding-top: 140px;
+                padding-bottom: 100px;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-tagline {
+                font-size: 1.1rem;
+            }
         }
         
         @media (max-width: 576px) {
@@ -745,14 +804,8 @@
                 font-size: 2rem;
             }
             
-            .hero-cta {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 100%;
-                max-width: 300px;
+            .hero-text h1 {
+                font-size: 2.2rem;
             }
             
             .contact-links {
@@ -793,14 +846,24 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section - NOW PROPERLY CENTERED -->
     <section class="hero" id="home">
+        <div class="hero-visual">
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+        </div>
+        
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
                     <h1 class="glitch" data-text="Shayne Gadia">Shayne Gadia</h1>
                     <div class="hero-tagline">System Project Manager × Creative Director</div>
-                    <p>Bridging the gap between technical execution and creative vision. I architect digital solutions that are not only functionally robust but also visually compelling and market-ready. A hybrid professional who speaks both code and design.</p>
+                    <div class="hero-description">
+                        <p>Bridging the gap between technical execution and creative vision. I architect digital solutions that are not only functionally robust but also visually compelling and market-ready. A hybrid professional who speaks both code and design.</p>
+                    </div>
                     
                     <div class="hero-cta">
                         <a href="#projects" class="btn btn-primary">
@@ -809,13 +872,6 @@
                         <a href="#contact" class="btn btn-secondary">
                             <i class="fas fa-comment-dots" style="margin-right: 10px;"></i> Let's Connect
                         </a>
-                    </div>
-                </div>
-                
-                <div class="hero-visual">
-                    <div class="floating-shapes">
-                        <div class="shape shape-1"></div>
-                        <div class="shape shape-2"></div>
                     </div>
                 </div>
             </div>
@@ -912,17 +968,11 @@
             </div>
             
             <div class="contact-links">
-                <a href="mailto:shayne.gadia@example.com" class="contact-link">
-                    <i class="fas fa-envelope"></i> shayne.gadia@example.com
+                <a href="mailto:shaynegadia@gmail.com" class="contact-link">
+                    <i class="fas fa-envelope"></i> shaynegadia@gmail.com
                 </a>
-                <a href="tel:+1234567890" class="contact-link">
-                    <i class="fas fa-phone"></i> +1 (234) 567-890
-                </a>
-                <a href="https://linkedin.com/in/shaynegadia" class="contact-link" target="_blank">
-                    <i class="fab fa-linkedin"></i> LinkedIn Profile
-                </a>
-                <a href="#contact" class="contact-link">
-                    <i class="fas fa-file-alt"></i> View Full Portfolio
+                <a href="tel:+639353160051" class="contact-link">
+                    <i class="fas fa-phone"></i> +63 935 316 0051
                 </a>
             </div>
         </div>
